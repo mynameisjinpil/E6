@@ -550,7 +550,7 @@ class MainViewController: UIViewController {
   private func addDelayLabel() {
     let label = UILabel()
     label.text = "0"
-    label.font = UIFont(name: label.font.fontName, size: 200)
+    label.font = UIFont.systemFont(ofSize: 200)
     label.textColor = .white
     label.isHidden = true
     
@@ -1432,13 +1432,18 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension MainViewController: DeviceVideoDataOutputDelegate {
-  func sendImage(_ image: UIImage) {
+  func sendPreviewImage(_ image: UIImage) {
     DispatchQueue.main.async {
       self.previewView.contentMode = .scaleAspectFit
+      self.previewView.image = image
+    }
+  }
+  
+  func sendFilmImage(_ image: UIImage) {
+    DispatchQueue.main.async {
       let filmCell = self.filmSelectCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as! FilmCell
       
       filmCell.imageView.image = image
-      self.previewView.image = image
     }
   }
 }
